@@ -211,8 +211,8 @@ extern "C" __global__ void rayGenAOKernel(void)
 
         // Output ray.
 
-        outRays[i].origin       = origin;
         outRays[i].direction    = normalize(x * t0 + y * t1 + z * normal);
+        outRays[i].origin       = origin + outRays[i].direction * 0.01f;
         outRays[i].tmin         = 0.0f;
         outRays[i].tmax         = (tri == -1) ? -1.0f : in.maxDist;
         outIDToSlot[i]          = i + outSlot;
@@ -277,8 +277,8 @@ extern "C" __global__ void rayGenShadowKernel(void)
 
 		// Output ray.
 
-		outRays[i].origin       = origin;
 		outRays[i].direction    = direction.normalized();
+		outRays[i].origin       = origin + outRays[i].direction * 0.01f;
 		outRays[i].tmin         = 0.0f;
 		outRays[i].tmax         = (tri == -1) ? -1.0f : direction.length();
 		outIDToSlot[i]          = i + outSlot;
